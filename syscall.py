@@ -7,7 +7,7 @@ def getID(name, cursor):
 
 	@param name The name of the function
 	@param cursor The cursor that traverses through the SQLite database
-	@return None or the ID (as a one-element list) of the system call in the database	
+	@return None or the ID (as a one-element list) of the system call in the database
 	'''
 	cursor.execute('SELECT f.Id FROM functions AS f WHERE Name = ?', (name,))
 	ids = []
@@ -118,7 +118,7 @@ if __name__ == "__main__":
 	if len(sys.argv) < 4:
 		print '''
 			usage: python syscall.py <database_file_path> <syscall_list_file_path> <output_file_path>
-			''' 
+			'''
 		exit(1)
 	output = open(sys.argv[3], "w+")
 	conn = sqlite3.connect(sys.argv[1])
@@ -126,7 +126,12 @@ if __name__ == "__main__":
 	with open(sys.argv[2], 'r') as f:
 		for line in f:
 			funcname = line.strip()
-			outline = funcname + '\t' + str(getID(replaceName(funcname), c)[0]) + '\n'
+			print "FuncName: " funcname + "\n"
+			name = replaceName(funcname)
+			print "ReplaceName: " + name + "\n"
+			id = str(getID(name, c)[0])
+			print "ID: " + id + "\n"
+			outline = funcname + '\t' + id + '\n'
 			output.write(outline)
 	f.close()
 	output.close()
