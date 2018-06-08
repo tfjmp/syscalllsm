@@ -44,9 +44,9 @@ if __name__ == "__main__":
 			"""
 		)
 		exit(1)
-	
+
 	logging.basicConfig(filename='error.log',level=logging.DEBUG)
-	
+
 	# Connect to the database and get a cursor.
 	conn = sqlite3.connect(sys.argv[1])
 	c = conn.cursor()
@@ -67,11 +67,10 @@ if __name__ == "__main__":
 				for callee in callees:
 					if callee not in caller2callee and callee not in queue:	# We have not checked this function as a caller yet nor will check later
 						queue.append(callee)
-			
+
 			security_hooks = check_callmap(c, caller2callee, False)	# LSM hooks called by the system call
 			output.write(syscallname + "\t" + str(security_hooks) + "\n")
 
 	f.close()
 	output.close()
 	conn.close()	# Done. Close the database
-
