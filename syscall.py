@@ -126,7 +126,7 @@ if __name__ == "__main__":
 	with open(sys.argv[2], 'r') as f:
 		for line in f:
 			funcname = line.strip()
-			print "FuncName: " funcname + "\n"
+			print "FuncName: " + funcname + "\n"
 			name = replaceName(funcname)
 			print "ReplaceName: " + name + "\n"
 			id = str(getID(name, c)[0])
